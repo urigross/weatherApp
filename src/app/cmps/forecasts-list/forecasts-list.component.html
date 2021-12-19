@@ -1,7 +1,5 @@
-<p>forecasts-list works!</p>
-<!-- <h2>{{forecasts.HeadLine.Text}}</h2> -->
-<ul *ngFor="let forecast of forecasts">
-    <li>
+<ul>
+    <li *ngFor="let forecast of forecasts">
         <app-forecast-preview [forecast]="forecast"></app-forecast-preview>
     </li>
 </ul>

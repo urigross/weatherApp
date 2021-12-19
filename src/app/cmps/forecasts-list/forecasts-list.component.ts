@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./forecasts-list.component.scss']
 })
 export class ForecastsListComponent implements OnInit {
-
+  
   @Input() forecasts!:[] | null;
   constructor() { }
 

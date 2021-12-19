@@ -8,6 +8,7 @@ import { WeatherService } from 'src/app/services/weather.service';
 })
 export class WeatherAppComponent implements OnInit {
   public forecasts!:any;
+  myImg: string = 'assets/images/weather/1.png';
   constructor( private weatherService: WeatherService) { }
 
   ngOnInit(): void {
