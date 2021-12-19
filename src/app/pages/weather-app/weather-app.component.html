@@ -1,0 +1,4 @@
+<p>weather-app works!</p>
+<button (click)="getWeather()">press</button>
+<!-- <div>{{forecasts | json}}</div> -->
+<app-forecasts-list *ngIf="forecasts" [forecasts]="forecasts | async"></app-forecasts-list>
