@@ -1,9 +1,12 @@
-.nav-container{
+.nav-container ul{
     display: flex;
     justify-content: flex-end;
     margin: 0 20px;
     gap: 50px;
-    h2{
-        
-    }
+    list-style-type: none;
+}
+
+a{
+    text-decoration: none;
+
 }
