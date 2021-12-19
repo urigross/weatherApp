@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./forecast-preview.component.scss']
 })
 export class ForecastPreviewComponent implements OnInit {
-  
+  public imgName:string='3';  
   @Input() forecast!: any;
   constructor() { }
 
