@@ -1,3 +1,7 @@
-<div *ngFor="let forecast of forecasts">
-    {{forecast.Date | date:'E /dd/MM/YY'}}
+<div>
+    <ul>
+        <li class="date">{{forecast.Date | date:'E dd/MM/YY'}}</li>
+        <li class="icon-phrase">{{forecast.Day.IconPhrase}}</li>
+        <li class="temp">{{forecast.Temperature.Maximum.Value}}&#8457;</li>
+    </ul>
 </div>

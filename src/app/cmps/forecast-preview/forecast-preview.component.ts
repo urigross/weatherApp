@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ForecastPreviewComponent implements OnInit {
   
-  @Input() forecasts: any;
+  @Input() forecast!: any;
   constructor() { }
 
   ngOnInit(): void {
