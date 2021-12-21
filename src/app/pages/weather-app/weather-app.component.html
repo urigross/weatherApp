@@ -1,4 +1,2 @@
 <button (click)="getWeather()">press</button>
-<app-forecasts-list *ngIf="forecasts" [forecasts]="forecasts | async"></app-forecasts-list>
-
-<!-- https://i.ibb.co/7r3Ltxf/1.png -->
+<app-forecasts-list *ngIf="forecastsObj" [forecastsObj]="forecastsObj | async"></app-forecasts-list>

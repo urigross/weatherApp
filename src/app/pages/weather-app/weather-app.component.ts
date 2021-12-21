@@ -7,14 +7,14 @@ import { WeatherService } from 'src/app/services/weather.service';
   styleUrls: ['./weather-app.component.scss']
 })
 export class WeatherAppComponent implements OnInit {
-  public forecasts!:any;
+  public forecastsObj!:any;
   constructor( private weatherService: WeatherService) { }
 
   ngOnInit(): void {
   }
 
   getWeather():void{
-    this.forecasts = this.weatherService.query();
+    this.forecastsObj = this.weatherService.query();
     // this.dailyForecasts = this.forecasts.DailyForecasts
 
   }
