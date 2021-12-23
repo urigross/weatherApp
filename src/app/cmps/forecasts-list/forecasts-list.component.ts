@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Post } from 'src/app/models/post.model';
 
 @Component({
   selector: 'app-forecasts-list',
@@ -7,10 +8,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ForecastsListComponent implements OnInit {
   
-  @Input() forecastsObj!:any;
+  @Input() post!:Post;
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }

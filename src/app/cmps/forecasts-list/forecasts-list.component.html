@@ -1,8 +1,8 @@
-<section *ngIf="forecastsObj">
-    <h2>{{forecastsObj.Headline.Text}}</h2>
-    <ul>
-        <li *ngFor="let forecast of forecastsObj.DailyForecasts">
-            <app-forecast-preview [forecast]="forecast"></app-forecast-preview>
+<section *ngIf="post">
+    <h2>{{post.Headline.Text }}</h2>
+        <ul>
+        <li *ngFor="let dailyForecast of post.DailyForecasts">
+            <app-forecast-preview [dailyForecast]="dailyForecast"></app-forecast-preview>
         </li>
     </ul>
 </section>

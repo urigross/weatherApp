@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { DailyForecast } from 'src/app/models/dailyForecast.model';
 
 @Component({
   selector: 'app-forecast-preview',
@@ -6,11 +7,9 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./forecast-preview.component.scss']
 })
 export class ForecastPreviewComponent implements OnInit {
-  public imgName:string='3';  
-  @Input() forecast!: any;
+  @Input() dailyForecast!: DailyForecast;
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }

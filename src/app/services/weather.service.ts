@@ -5,7 +5,7 @@ import { catchError, retry } from 'rxjs';
 
 
 const ROOT_URL = 'http://dataservice.accuweather.com/forecasts/v1/daily/5day/212511?apikey=1O5x6iWGX2PXaKBdLiSGS82FD9V6HScH';
-//  const ROOT_URL = 'https://api.npoint.io/6c9d1ba47b3a61ef639a';
+//const ROOT_URL = 'https://api.npoint.io/6c9d1ba47b3a61ef639a';
 
 var posts: any;
 @Injectable({
@@ -13,12 +13,12 @@ var posts: any;
 })
 export class WeatherService {
 
-  constructor(private http: HttpClient) {}
-  
-  public query() {
-    // var data:any = this.http.get(ROOT_URL +'/DailyForecasts');
-    var data:any = this.http.get(ROOT_URL);
-    return data; 
-    // return this.http.get(ROOT_URL + '/posts'); 
+  constructor(private http: HttpClient) { }
+
+  public locationQuery() { }
+
+  // HttpRequest returns Observable
+  public getPosts(): any {
+    return this.http.get(ROOT_URL);
   }
 }

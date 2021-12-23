@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Post } from 'src/app/models/post.model';
 import { WeatherService } from 'src/app/services/weather.service';
 
 @Component({
@@ -7,16 +8,14 @@ import { WeatherService } from 'src/app/services/weather.service';
   styleUrls: ['./weather-app.component.scss']
 })
 export class WeatherAppComponent implements OnInit {
-  public forecastsObj!:any;
+  post!: Post;
   constructor( private weatherService: WeatherService) { }
 
   ngOnInit(): void {
+    this.weatherService.getPosts().subscribe(
+      (response:any) => {this.post = response },
+      // (response:any) => {this.post.DailyForecasts = response.DailyForecasts; this.post.Headline.Text = response.Headline.Text },
+      (err:string)=>{console.log('There is an error',err)}
+    )
   }
-
-  getWeather():void{
-    this.forecastsObj = this.weatherService.query();
-    // this.dailyForecasts = this.forecasts.DailyForecasts
-
-  }
-
 }
