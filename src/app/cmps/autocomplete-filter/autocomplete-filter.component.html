@@ -2,10 +2,11 @@
     <div class="search-box-container">
         <label for="search"><fa-icon [icon]="faSearch"></fa-icon>
         </label>
-        <input id="search" placeholder="Search" formControlName="search" type="text" (click)="onToggleDropDown()">
+        <input id="search" placeholder="Search" formControlName="search" 
+        type="text" (click)="onToggleDropDown()" (ngModelChange)="onSetFilter()">
         <div clickOutside (clickOutside)="onToggleDropDown()" *ngIf="showDropdown" class="state-conainer-dropdown">
             <div>
-                <div class="city" (click)="onSelectValue(city)" *ngFor="let city of citiesNames | searchFilter:getSearchValue()">
+                <div class="city" (click)="onSelectCity(city)" *ngFor="let city of citiesNames | searchFilter:getSearchValue()">
                     {{city}}
                 </div>
             </div>

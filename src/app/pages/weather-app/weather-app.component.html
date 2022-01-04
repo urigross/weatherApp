@@ -1,4 +1,5 @@
 <!-- <pre *ngIf="citiesPost">{{citiesPost | json}}</pre> -->
 <!-- <pre *ngIf="citiesNames">{{citiesNames}}</pre> -->
-<app-autocomplete-filter *ngIf="citiesPost" [citiesNames]="citiesNames"></app-autocomplete-filter>
+<app-autocomplete-filter *ngIf="citiesPost" [citiesNames]="citiesNames" (autoCompleteStr)="onEmitAutoCompleteStr($event)" (chosenCity)="onEmitChosenCity($event)"></app-autocomplete-filter>
+<pre *ngIf="chosenCity">{{chosenCity}}</pre>
 <app-forecasts-list *ngIf="post" [post]="post"></app-forecasts-list>

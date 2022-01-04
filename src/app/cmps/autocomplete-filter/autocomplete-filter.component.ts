@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { WeatherService } from 'src/app/services/weather.service';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -12,6 +12,8 @@ import { CityPost } from 'src/app/models/cityPost.model';
 export class AutocompleteFilterComponent implements OnInit {
   searchString: string = '';
   @Input() citiesNames: string[] = [];
+  @Output() autoCompleteStr = new EventEmitter();
+  @Output() chosenCity = new EventEmitter();
   // cities: string[] =[];
   stateForm!: FormGroup;
   faSearch = faSearch;
@@ -38,14 +40,19 @@ export class AutocompleteFilterComponent implements OnInit {
   }
 
   getSearchValue(){
-    console.log(this.stateForm.value.search,'search value')
     return this.stateForm.value.search;
   }
-  onSelectValue(city:string):void{
+
+  onSetFilter(){
+    console.log(this.stateForm.value.search, ' search chars');
+    this.autoCompleteStr.emit(this.stateForm.value.search);
+  }
+  // City selected from dropdown
+  onSelectCity(city:string):void{
     this.stateForm.patchValue({"search":city});
     this.showDropdown = false;
+    this.chosenCity.emit(city);
     //const cityIdx:number = this.citiesPost.findIndex(city=>city.LocalizedName === this.stateForm.value.search )
-    console.log(this.stateForm.value.search);
   }
     
 }
