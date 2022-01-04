@@ -8,6 +8,13 @@ import { FavoritsComponent } from './pages/favorits/favorits.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ForecastsListComponent } from './cmps/forecasts-list/forecasts-list.component';
 import { ForecastPreviewComponent } from './cmps/forecast-preview/forecast-preview.component';
+import { AutocompleteFilterComponent } from './cmps/autocomplete-filter/autocomplete-filter.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ClickOutsideDirective } from './directives/click-outside.directive';
+import { SearchFilterPipe } from './pipes/search-filter.pipe';
+
+
 
 
 @NgModule({
@@ -17,12 +24,19 @@ import { ForecastPreviewComponent } from './cmps/forecast-preview/forecast-previ
     HeaderComponent,
     FavoritsComponent,
     ForecastsListComponent,
-    ForecastPreviewComponent
+    ForecastPreviewComponent,
+    AutocompleteFilterComponent,
+    ClickOutsideDirective,
+    SearchFilterPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FontAwesomeModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
