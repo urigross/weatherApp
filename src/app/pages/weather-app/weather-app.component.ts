@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { faLeaf } from '@fortawesome/free-solid-svg-icons';
+import { Observable, Subscription } from 'rxjs';
 import { CityPost } from 'src/app/models/cityPost.model';
 import { Post } from 'src/app/models/post.model';
+import { FavoriteService } from 'src/app/services/favorite.service';
 import { WeatherService } from 'src/app/services/weather.service';
 
 @Component({
@@ -17,17 +20,25 @@ export class WeatherAppComponent implements OnInit {
   citiesNamesKeys: CityPost[] = [];
   citiesNames: string[]=[];
   chosenCity: string ='';
-  constructor( private weatherService: WeatherService) { }
+  favCities$!: Observable<string[]>;
+  subscription!: Subscription;
+  isFavorite: boolean = false;
+  favCities: string[] =[];
+  errMsg: string ='';
 
+  
+  constructor( private weatherService: WeatherService, private favoriteService: FavoriteService) { }
+  
   ngOnInit(): void {
+    this.favCities$ = this.favoriteService.query();
+    this.favCities$.subscribe(cities => this.favCities = cities )
     // Get locations
     //this.getLocationQuery();
     // this.getPosts();    
   }
-// get locations object
+// get locations object from Api & fill the cities list
   getLocationQuery(autoCompleteCity:string):void{
     if(autoCompleteCity){
-      console.log('getting from service locationquery')
       this.weatherService.locationQuery(autoCompleteCity).subscribe(
         (response:any) => {
           this.citiesPost = response
@@ -52,6 +63,7 @@ export class WeatherAppComponent implements OnInit {
   }
 
   onEmitAutoCompleteStr(data:string):void{
+    // Get the location autocomplete list from API
     this.getLocationQuery(data);
     // this.chosenCity = data;
     // // Get city index
@@ -73,6 +85,33 @@ export class WeatherAppComponent implements OnInit {
     const cityKey = this.citiesNamesKeys[idx].Key;
     // Get weather forecast by the city key
     this.getPosts(cityKey);
+    // Get favoriteSign for the chosen city
+    // Get favorite cities list
   }
-
+  async onUpdatedFav(data: boolean){
+    if(data)
+    // In case toogle On favorite - Add city to favCities
+     {
+       this.favCities.push(this.chosenCity)
+       try{
+         await this.favoriteService.save(this.chosenCity).toPromise();
+       } catch(err){
+         this.errMsg = err as string;
+         console.log(err);
+       }
+    }
+    else {
+      try{
+        this._removeFavCity(this.chosenCity)
+        this.favoriteService.remove(this.chosenCity);
+      }catch(err){
+        this.errMsg = err as string;
+         console.log(err);
+      }      
+    }
+  }
+  private _removeFavCity(city:string):void{
+    const idx: number = this.favCities.findIndex(c=>c === city);
+    this.favCities.splice(idx,1)
+  }
 }
