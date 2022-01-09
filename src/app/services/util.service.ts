@@ -8,6 +8,7 @@ function loadFromStorage(key:string) {
   return JSON.parse(localStorage.getItem(key) || "[]")
 }
 function saveToStorage(key:string, val:any) {
+   console.log('saveToStorage been called. Passed value',val);
    localStorage.setItem(key, JSON.stringify(val))
 }
 

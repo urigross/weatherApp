@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs';
 
-const API_KEY = '1O5x6iWGX2PXaKBdLiSGS82FD9V6HScH';
-//const API_KEY = '1HTEFW2KdbvXG4CPLWGOxJFpP097Q58e';
+//const API_KEY = '1O5x6iWGX2PXaKBdLiSGS82FD9V6HScH';
+const API_KEY = '1HTEFW2KdbvXG4CPLWGOxJFpP097Q58e';
 const AUTOCOMPLETE_MOCK_URL = `https://api.npoint.io/2ba8eb9f07495fd75a71`;
 //const FORECAST_URL = 'https://api.npoint.io/6c9d1ba47b3a61ef639a';
 @Injectable({
