@@ -29,6 +29,7 @@ export class WeatherAppComponent implements OnInit {
 
   constructor(private weatherService: WeatherService, private favoriteService: FavoriteService) { }
 
+  // Load favorite cities list.
   ngOnInit(): void {
     this.favCities$ = this.favoriteService.query();
     this.favCities$.subscribe(cities => this.favCities = cities)
@@ -76,7 +77,7 @@ export class WeatherAppComponent implements OnInit {
   getcityIdx(cityName: string): number {
     return this.citiesNamesKeys.findIndex(city => city.LocalizedName === cityName);
   }
-
+// Pass city name and get the forecast for this city.
   onEmitChosenCity(data: string): void {
     this.chosenCity = data;
     // get city index
@@ -86,6 +87,7 @@ export class WeatherAppComponent implements OnInit {
     // Get weather forecast by the city key
     this.getPosts(cityKey);
     // Get favoriteSign for the chosen city
+    this.isFavorite = this.favoriteService.isFavoriteCity(data);
     // Get favorite cities list
   }
   async onUpdatedFav(data: boolean) {

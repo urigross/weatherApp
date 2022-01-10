@@ -39,5 +39,9 @@ export class FavoriteService {
     this._cities$.next(cities);
     console.log('FavoriteService save() _cities$',this._cities$.getValue())
     return of(cities);
+  }
+  public isFavoriteCity(city:string):boolean{
+    // Returns a boolean if item found in the array
+    return this._cities$.getValue().some(item=>item === city);
   }  
 }
