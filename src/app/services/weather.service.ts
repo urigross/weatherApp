@@ -22,7 +22,7 @@ export class WeatherService {
   }
   
   // HttpRequest returns Observable
-  public getPosts(cityKey:string): any {
+  public getPosts(cityKey:string): Observable<any> {
     const FORECAST_URL = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=${API_KEY}`;
     return this.http.get(FORECAST_URL);
   }

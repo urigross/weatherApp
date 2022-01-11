@@ -1,6 +1,6 @@
 <section *ngIf="post">
     <h2>{{post.Headline.Text }}</h2>
-        <ul>
+    <ul>
         <li *ngFor="let dailyForecast of post.DailyForecasts">
             <app-forecast-preview [dailyForecast]="dailyForecast"></app-forecast-preview>
         </li>

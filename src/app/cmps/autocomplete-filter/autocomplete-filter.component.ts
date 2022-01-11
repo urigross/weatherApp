@@ -13,8 +13,7 @@ export class AutocompleteFilterComponent implements OnInit {
   searchString: string = '';
   @Input() citiesNames: string[] = [];
   @Output() autoCompleteStr = new EventEmitter();
-  @Output() chosenCity = new EventEmitter();
-  // cities: string[] =[];
+  @Output() chosenCity: EventEmitter<string> = new EventEmitter();
   stateForm!: FormGroup;
   faSearch = faSearch;
   showDropdown: boolean = false;
