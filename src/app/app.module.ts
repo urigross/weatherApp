@@ -14,6 +14,8 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { SearchFilterPipe } from './pipes/search-filter.pipe';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { FavoriteToggleComponent } from './cmps/favorite-toggle/favorite-toggle.component';
+import { FavoriteListComponent } from './cmps/favorite-list/favorite-list.component';
+import { FavoritePreviewComponent } from './cmps/favorite-preview/favorite-preview.component';
 
 
 
@@ -30,6 +32,8 @@ import { FavoriteToggleComponent } from './cmps/favorite-toggle/favorite-toggle.
     SearchFilterPipe,
     FavoritesComponent,
     FavoriteToggleComponent,
+    FavoriteListComponent,
+    FavoritePreviewComponent,
   ],
   imports: [
     BrowserModule,

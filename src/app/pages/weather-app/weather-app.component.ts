@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { faLeaf } from '@fortawesome/free-solid-svg-icons';
 import { Observable, Subscription } from 'rxjs';
 import { CityPost } from 'src/app/models/cityPost.model';
 import { Post } from 'src/app/models/post.model';
@@ -23,7 +22,7 @@ export class WeatherAppComponent implements OnInit {
   favCities$!: Observable<string[]>;
   subscription!: Subscription;
   isFavorite: boolean = false;
-  favCities: string[] = [];
+  //favCities: string[] = [];
   errMsg: string = '';
 
 
@@ -32,7 +31,7 @@ export class WeatherAppComponent implements OnInit {
   // Load favorite cities list.
   ngOnInit(): void {
     this.favCities$ = this.favoriteService.query();
-    this.favCities$.subscribe(cities => this.favCities = cities)
+    //this.favCities$.subscribe(cities => this.favCities = cities)
     // Get locations
     //this.getLocationQuery();
     // this.getPosts();    
@@ -96,7 +95,7 @@ export class WeatherAppComponent implements OnInit {
     // In case toogle On favorite - Add city to favCities
     {
       //this.favCities.push(this.chosenCity)
-      console.log('weatherApp.ts onUpdatedFav() favCities',this.favCities)
+      //console.log('weatherApp.ts onUpdatedFav() favCities',this.favCities)
       try {
         await this.favoriteService.save(this.chosenCity).toPromise();
       } catch (err) {
@@ -113,10 +112,5 @@ export class WeatherAppComponent implements OnInit {
         console.log(err);
       }
     }
-  }
-  private _removeFavCity(city: string): void {
-    const idx: number = this.favCities.findIndex(c => c === city);
-    this.favCities.splice(idx, 1)
-    console.log(this.favCities)
   }
 }

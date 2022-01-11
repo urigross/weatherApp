@@ -27,6 +27,7 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 ## Todo
-Bug fix - look inside favCitiesDB, Make it according to refresh also
 Bug fix - After getting a forecast for city - Cannot enter another city search.
 Responsive design.
+Improve forecast-preview
+
