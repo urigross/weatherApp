@@ -1,5 +1,10 @@
-ul{
-    display: flex;
-    list-style-type: none;
-    justify-content: center;
+section{
+    .city-name, .post-headline{
+        text-align: center;
+    }
+    ul{
+        display: flex;
+        list-style-type: none;
+        justify-content: center;
+    }
 }
