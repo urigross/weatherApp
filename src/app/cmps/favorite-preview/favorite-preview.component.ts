@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CityPost } from 'src/app/models/cityPost.model';
 
 @Component({
   selector: 'app-favorite-preview',
@@ -6,10 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./favorite-preview.component.scss']
 })
 export class FavoritePreviewComponent implements OnInit {
-@Input() favCity: string = '';
+@Input() favCityPost: CityPost = {Key:'',LocalizedName:''};
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }

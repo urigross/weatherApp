@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { CityPost } from 'src/app/models/cityPost.model';
 import { FavoriteService } from 'src/app/services/favorite.service';
 @Component({
   selector: 'app-favorites',
@@ -7,12 +8,12 @@ import { FavoriteService } from 'src/app/services/favorite.service';
   styleUrls: ['./favorites.component.scss']
 })
 export class FavoritesComponent implements OnInit {
-  favCities$!: Observable<string[]>;
+  favCitiesPost$!: Observable<CityPost[]>;
   constructor( private favoriteService: FavoriteService) { }
 
   ngOnInit(): void {
-    this.favCities$ = this.favoriteService.query();
-    console.log('favorites component ngOnInit()',this.favCities$.subscribe(item=> console.log('item',item)));
+    this.favCitiesPost$ = this.favoriteService.query();
+    console.log('favorites component ngOnInit()',this.favCitiesPost$.subscribe(item=> console.log('item',item)));
 
   }
 

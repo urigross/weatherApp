@@ -1,3 +1,6 @@
+<!-- Cities search bar -->
 <app-autocomplete-filter *ngIf="citiesPost" [citiesNames]="citiesNames" (autoCompleteStr)="onEmitAutoCompleteStr($event)" (chosenCity)="onEmitChosenCity($event)"></app-autocomplete-filter>
+<!-- Favorite star at homepage -->
 <app-favorite-toggle *ngIf="chosenCity" [isFavorite]="isFavorite" (updatedFavorite)="onUpdatedFav($event)"></app-favorite-toggle>
-<app-forecasts-list *ngIf="post" [post]="post"></app-forecasts-list>
+<!-- 5days forecast -->
+<app-forecasts-list *ngIf="post && chosenCity" [chosenCity]="chosenCity" [post]="post"></app-forecasts-list>
