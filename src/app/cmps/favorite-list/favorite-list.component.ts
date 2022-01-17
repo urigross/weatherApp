@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
+import { CityPost } from 'src/app/models/cityPost.model';
 
 @Component({
   selector: 'app-favorite-list',
@@ -7,7 +8,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./favorite-list.component.scss']
 })
 export class FavoriteListComponent implements OnInit {
-  @Input() favCities: string[] | null= []
+  @Input() favCitiesPost: CityPost[] | null= []
 
   constructor() { }
 
