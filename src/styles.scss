@@ -9,7 +9,20 @@ body{
     box-sizing: border-box;
 }
 
-.max-width{
-    margin: 0 30px;
-    max-width: 1300px;
+a{
+  text-decoration: none;
 }
+a:visited{
+    color: black;
+}
+
+ul {
+    list-style-type: none;
+}
+
+
+
+// .max-width{
+//     margin: 0 30px;
+//     max-width: 1300px;
+// }
