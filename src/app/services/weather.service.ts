@@ -18,6 +18,7 @@ export class WeatherService {
   
   // returns autocomplete cities and citycodes list ojbect
   public locationQuery(autoCompleteCity:string) {
+    
     var AUTOCOMPLETE_URL = `http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${autoCompleteCity}`;
     // return this.http.get(AUTOCOMPLETE_MOCK_URL);
     return this.http.get(AUTOCOMPLETE_URL);
@@ -25,7 +26,9 @@ export class WeatherService {
   
   // HttpRequest returns Observable of object with cities forecast
   public getPosts(cityKey:string): Observable<any> {
-    const FORECAST_URL = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=${API_KEY}`;
+    const FORECAST_URL = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=${API_KEY}&language=en-us&metric=true`;
+   // const FORECAST_URL = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=${API_KEY}`;
+
     return this.http.get(FORECAST_URL);
   }
 }
