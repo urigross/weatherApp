@@ -9,7 +9,6 @@ import { Post } from 'src/app/models/post.model';
 export class ForecastsListComponent implements OnInit {
   
   @Input() post!:Post;
-  @Input() chosenCity:string='';
   constructor() { }
 
   ngOnInit(): void {

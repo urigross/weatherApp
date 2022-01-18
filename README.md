@@ -30,5 +30,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 Bug fix - After getting a forecast for city - Cannot enter another city search.
 Responsive design.
 Improve forecast-preview
-Change favoriteCitiesDB to an Objects Array with properties "name","code"
+Change to Celcious
+
 
