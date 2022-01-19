@@ -4,6 +4,9 @@ export interface DailyForecast {
         Maximum: {
             Value: number
         },
+        Minimum: {
+            Value: number
+        }
         text: string,
     }
     Day: {
