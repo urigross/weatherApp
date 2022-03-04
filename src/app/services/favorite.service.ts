@@ -9,36 +9,30 @@ import { utilService } from './util.service';
 export class FavoriteService {
   private KEY: string = 'favCitiesDB';
   private _cities$ = new BehaviorSubject<CityPost[]>([]);
-
   public cities$ = this._cities$.asObservable();
   
   constructor() { }
-
+// Query favorite cities from LS and state
   public query(): BehaviorSubject<CityPost[]> {
-    console.log('Entered FavoriteService query()')
     let favCities = utilService.load(this.KEY);
     this._cities$.next(favCities);
-    console.log('favoriteService query() _cities:',this._cities$.getValue());
     return this._cities$;
   }
+  // Remove favorite city from LS and state
   public remove(city:string):void{
-    console.log('Entered FavoriteService remove()')
     const cities = this._cities$.getValue();
     const idx = cities.findIndex(item => item.LocalizedName === city);
     cities.splice(idx, 1);
     this._cities$.next(cities);
-    console.log('FavoriteService remove() _cities$',this._cities$.getValue())
     utilService.save(this.KEY, cities);
   }
+
+  //Save facovite City to LS and update state
   public save(cityObj: CityPost): Observable<CityPost[]>{
-    console.log('Entered FavoriteService save()')
     const cities = this._cities$.getValue();
-    console.log(' favoriteService save() _cities$.getValue: ',this._cities$.getValue());
     cities.push(cityObj);
-    console.log(' favoriteService save() cities after push city: ',cities);
     utilService.save(this.KEY,cities);
     this._cities$.next(cities);
-    console.log('FavoriteService save() _cities$',this._cities$.getValue())
     return of(cities);
   }
   public isFavoriteCity(city:string):boolean{
