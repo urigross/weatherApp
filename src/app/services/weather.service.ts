@@ -22,18 +22,18 @@ export class WeatherService {
   constructor(private http: HttpClient) { }
   
   // returns autocomplete cities and citycodes list ojbect
-  public locationQuery(autoCompleteCity:string) {
+  public async locationQuery(autoCompleteCity:string) :Promise<any> {
     
     var AUTOCOMPLETE_URL = `http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${apiKeys[0]}&q=${autoCompleteCity}`;
     // return this.http.get(AUTOCOMPLETE_MOCK_URL);
-    return this.http.get(AUTOCOMPLETE_URL);
+    return  await this.http.get(AUTOCOMPLETE_URL);
   }
   
   // HttpRequest returns Observable of object with cities forecast
-  public getPosts(cityKey:string): Observable<any> {
+  public  async getPosts(cityKey:string): Promise<Observable<any>> {
     const FORECAST_URL = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=${apiKeys[0]}&language=en-us&metric=true`;
    // const FORECAST_URL = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${cityKey}?apikey=${API_KEY}`;
 
-    return this.http.get(FORECAST_URL);
+    return  await this.http.get(FORECAST_URL);
   }
 }
