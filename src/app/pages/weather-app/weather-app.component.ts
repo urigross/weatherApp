@@ -35,24 +35,25 @@ export class WeatherAppComponent implements OnInit {
     // get favorite city from favorites page by router params
     this.getFavCity();
     this._getCityAndForecast(this.chosenCity);
-    }
-    getFavCities():void{
-      console.log('weatherApp page getFavCities()')
-      this.favCities$ = this.favoriteService.query();
   }
-  getFavCity():void{
+  getFavCities(): void {
+    console.log('weatherApp page getFavCities()')
+    this.favCities$ = this.favoriteService.query();
+  }
+  getFavCity(): void {
     console.log('weatherApp page getFavCity()')
     const data: string = this.route.snapshot.paramMap.get('favCity')!;   // Gets null if nothing received from params
-    if(data){
+    if (data) {
       this.citiesNamesKeys = this.favCities$.getValue();
       this.chosenCity = data;
     }
     this._getCityAndForecast(data);
   }
   // get locations object from Api & fill the cities list
-  getLocationQuery(autoCompleteCity: string): void {
+  async getLocationQuery(autoCompleteCity: string): Promise<void> {
     if (autoCompleteCity) {
-      this.weatherService.locationQuery(autoCompleteCity).subscribe(
+      const ans = await this.weatherService.locationQuery(autoCompleteCity);
+      ans.subscribe(
         (response: any) => {
           this.citiesPost = response
           this.citiesNamesKeys = this.citiesPost.map(city => {
@@ -61,55 +62,68 @@ export class WeatherAppComponent implements OnInit {
             cityObject['LocalizedName'] = city.LocalizedName;
             return cityObject
           })
-          this.citiesNames = this.citiesNamesKeys.map(city => city.LocalizedName);
+          if (this.citiesNamesKeys) {
+            this._mapCityNames(this.citiesNamesKeys)
+          }
+          else {
+            this.getLocationQuery(autoCompleteCity);
+          };
         },
       )
     }
   }
+
+  private _mapCityNames(citiesWithKeys: CityPost[]): void {
+    this.citiesNames = this.citiesNamesKeys.map(city => city.LocalizedName);
+  }
   // get weather posts
-  getPosts(cityKey: string): void {
+  async getPosts(cityKey: string): Promise<void> {
     console.log('getting from service getposts')
-    this.weatherService.getPosts(cityKey).subscribe(
-      (response: any) => { this.post = response },
-      (err: string) => { console.log('There is an error', err) }
+    const ans = await this.weatherService.getPosts(cityKey);
+    ans.subscribe(
+      (response: any) => {
+        this.post = response
+        if (!this.post) this.getPosts(cityKey);
+      }
     )
+
   }
 
   onEmitAutoCompleteStr(data: string): void {
     // Get the location autocomplete list from API
     this.getLocationQuery(data);
   }
-  
+
   private _getcityIdx(cityName: string): number {
-    console.log('weather-app cmps _getcityIdx() cityName:',cityName,'citiesNamesKeys',this.citiesNamesKeys);
+    console.log('weather-app cmps _getcityIdx() cityName:', cityName, 'citiesNamesKeys', this.citiesNamesKeys);
     return this.citiesNamesKeys.findIndex(city => city.LocalizedName === cityName);
   }
-  
-    private _getCityKey(cityName:string):string{
-      const idx: number = this._getcityIdx(cityName);
-      return this.citiesNamesKeys[idx].Key;
-    }
-// Pass city name and get the forecast for this city.
+
+  private _getCityKey(cityName: string): string {
+    const idx: number = this._getcityIdx(cityName);
+    return this.citiesNamesKeys[idx].Key;
+  }
+  // Pass city name and get the forecast for this city.
   onEmitChosenCity(data: string): void {
     console.log('weather-app cmps onEmitChosenCity()');
     this.chosenCity = data;
     this._getCityAndForecast(data);
   }
-  
-  private _getCityAndForecast(city:string):void{
-    console.log('Entered weather-app cmps _getCityAndForecast()'); 
+
+  private _getCityAndForecast(city: string): void {
+    console.log('Entered weather-app cmps _getCityAndForecast()');
     // get city index if city match 
-    console.log('weather-app cmps _getCityAndForecast() city:',city);
+    console.log('weather-app cmps _getCityAndForecast() city:', city);
     const idx: number = this._getcityIdx(city);
-    console.log('weather-app cmps _getCityAndForecast() idx:',idx);
+    console.log('weather-app cmps _getCityAndForecast() idx:', idx);
     if (idx === -1) return;
     const cityKey = this.citiesNamesKeys[idx].Key;
-    console.log('weather-app cmps _getCityAndForecast() cityKey:',cityKey);
+    console.log('weather-app cmps _getCityAndForecast() cityKey:', cityKey);
     // Get weather forecast by the city key
     this.getPosts(cityKey);
     // Get favoriteSign for the chosen city
     this.isFavorite = this.favoriteService.isFavoriteCity(city);
-    console.log('weather-app cmps _getCityAndForecast() isFavorite:',this.isFavorite);
+    console.log('weather-app cmps _getCityAndForecast() isFavorite:', this.isFavorite);
   }
 
   async onUpdatedFav(data: boolean) {
@@ -118,7 +132,7 @@ export class WeatherAppComponent implements OnInit {
     // In case toogle On favorite - Add city to favCities
     {
       try {
-        const cityObj: CityPost = {Key: this._getCityKey(this.chosenCity),LocalizedName:this.chosenCity}
+        const cityObj: CityPost = { Key: this._getCityKey(this.chosenCity), LocalizedName: this.chosenCity }
         await this.favoriteService.save(cityObj).toPromise();
       } catch (err) {
         this.errMsg = err as string;
@@ -127,7 +141,7 @@ export class WeatherAppComponent implements OnInit {
     }
     else {
       try {
-       // this._removeFavCity(this.chosenCity)
+        // this._removeFavCity(this.chosenCity)
         this.favoriteService.remove(this.chosenCity);
       } catch (err) {
         this.errMsg = err as string;
