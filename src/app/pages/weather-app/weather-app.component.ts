@@ -62,24 +62,31 @@ export class WeatherAppComponent implements OnInit {
             cityObject['LocalizedName'] = city.LocalizedName;
             return cityObject
           })
-          this.citiesNames = this.citiesNamesKeys.map(city => city.LocalizedName);
+          if (this.citiesNamesKeys) {
+            this._mapCityNames(this.citiesNamesKeys)
+          }
+          else {
+            this.getLocationQuery(autoCompleteCity);
+          };
         },
       )
     }
+  }
+
+  private _mapCityNames(citiesWithKeys: CityPost[]): void {
+    this.citiesNames = this.citiesNamesKeys.map(city => city.LocalizedName);
   }
   // get weather posts
   async getPosts(cityKey: string): Promise<void> {
     console.log('getting from service getposts')
     const ans = await this.weatherService.getPosts(cityKey);
-    try {
-      ans.subscribe(
-        (response: any) => { this.post = response }
-        // (err: string) => { console.log('There is an error', err) }
-      )
-    }
-    catch (error) {
-      console.log(error);
-    }
+    ans.subscribe(
+      (response: any) => {
+        this.post = response
+        if (!this.post) this.getPosts(cityKey);
+      }
+    )
+
   }
 
   onEmitAutoCompleteStr(data: string): void {
